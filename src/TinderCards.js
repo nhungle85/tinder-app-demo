@@ -1,27 +1,20 @@
-import { SwipeableDrawer } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import "./TinderCards.css";
+import axios from "./axios";
 
 function TinderCards() {
-  const [people, setPeople] = useState([
-    {
-      name: "Elon Williams",
-      url: "https://media.istockphoto.com/photos/fit-man-standing-outdoors-in-a-city-picture-id1299360127?b=1&k=20&m=1299360127&s=170667a&w=0&h=1Rvw_UPTnj1LkB543cuCjiLM0xbIdjjin0rw6yaL8bc=",
-    },
-    {
-      name: "David Parker",
-      url: "https://us.123rf.com/450wm/luismolinero/luismolinero1909/luismolinero190917934/130592146-handsome-young-man-in-pink-shirt-over-isolated-blue-background-keeping-the-arms-crossed-in-frontal-p.jpg?ver=6",
-    },
-    {
-      name: "Summer Brown",
-      url: "https://ath2.unileverservices.com/wp-content/uploads/sites/4/2020/02/IG-faketeeth.jpg",
-    },
-    {
-      name: "Sara White",
-      url: "https://ath2.unileverservices.com/wp-content/uploads/sites/4/2020/02/IG-annvmariv.jpg",
-    },
-  ]);
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get("/tinder/cards");
+
+      setPeople(req.data);
+    }
+
+    fetchData();
+  }, []);
 
   const swiped = (direction, nameToBeDelete) => {
     console.log("removing; " + nameToBeDelete);
@@ -44,7 +37,7 @@ function TinderCards() {
             onCardLeftScreen={() => outOfFrame(person.name)}
           >
             <div
-              style={{ backgroundImage: `url(${person.url})` }}
+              style={{ backgroundImage: `url(${person.imgUrl})` }}
               className="card"
             >
               <h3>{person.name}</h3>
