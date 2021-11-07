@@ -9,3 +9,16 @@
     padding: 15px;
     border-radius: 20px;
 }
+
+.chatscreen__timestamp {
+    text-align: center;
+    padding: 20px;
+    color: grey;
+}
+
+.chatscreen__textUser {
+    margin-left: auto;
+    background-color: #29b3cd;
+    padding: 15px;
+    border-radius: 20px;
+}
